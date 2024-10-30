@@ -1,0 +1,48 @@
+@model OrderApp.Models.Order
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Добавить новый заказ</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Добавить новый заказ</h2>
+
+        @using (Html.BeginForm())
+        {
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Weight)
+				@Html.TextBoxFor(m => m.Weight, new { @class = "form-control"})
+                @Html.ValidationMessageFor(m => m.Weight)
+            </div>
+
+            <div class="form-group">
+				@Html.LabelFor(m => m.District, "Район")
+                @Html.DropDownListFor(m => m.District, (SelectList)ViewBag.Districts, "Выберите район", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.District)
+            </div>
+
+            <div class="form-group">
+				@Html.Label("DeliveryDateTime", "Дата и время доставки")
+				@Html.TextBoxFor(m => m.DeliveryTime, "{0:yyyy-MM-ddTHH:mm:ss}", new
+					{
+						@class = "form-control",
+						type =
+								"datetime-local"
+					})
+				@Html.ValidationMessageFor(m => m.DeliveryTime)
+
+            </div>
+
+            <button type="submit" class="btn btn-primary">Добавить заказ</button>
+        }
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

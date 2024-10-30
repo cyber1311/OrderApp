@@ -1,0 +1,72 @@
+﻿@model IEnumerable<OrderApp.Models.Order>
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Заказы</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+
+<body>
+	<div class="container">
+		<h2>Список заказов</h2>
+		<br>
+		<form method="get" action="@Url.Action("Index")">
+			<table class="table table-bordered">
+				<tbody>
+					<td>
+						<div>
+							<label for="district">Район:</label>
+							<select name="district" id="district">
+								<option value="">Выбрать район</option>
+								@foreach (var item in ViewBag.Districts)
+								{
+									<option value="@item.Value">@item.Text</option>
+								}
+							</select>
+						</div>
+					</td>
+					<td>
+						<div>
+							<label for="firstDeliveryDateTime">Время первой доставки:</label>
+							<input type="datetime-local" name="firstDeliveryDateTime" id="firstDeliveryDateTime" />
+						</div>
+					</td>
+				</tbody>
+			</table>
+			<button type="submit" class="btn btn-primary">Отфильтровать</button>
+		</form>
+		<br>
+		<p>Район: @ViewData["District"]</p>
+		<p>Время первой доставки: @ViewData["FirstDeliveryDateTime"]</p>
+		<br>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Идентификатор</th>
+					<th>Вес</th>
+					<th>Район</th>
+					<th>Дата доставки</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var order in Model)
+				{
+					<tr>
+						<td>@order.Id</td>
+						<td>@order.Weight</td>
+						<td>@order.District</td>
+						<td>@order.DeliveryTime.ToString("g")</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+		
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>
